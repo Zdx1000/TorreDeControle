@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Separação - Controle de separação por setor">
+    <title>Separação - Dashboard</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/slimbar.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/Separação/styles.css">
+    <link rel="stylesheet" href="/static/Separação/modal-chart.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>🚀 Sistema de Separação</h1>
+                <p>Acompanhamento de Box, Carga e Veículo - Em Desenvolvimento</p>
+            </div>
+            <div class="header-actions">
+                <button class="chart-btn" id="chartBtn">
+                    <svg class="chart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                    </svg>
+                    Gráficos
+                </button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="construction-container">
+                <div class="construction-card">
+                    <div class="construction-icon">
+                        �
+                    </div>
+                    <div class="construction-content">
+                        <h2>Sistema em Desenvolvimento</h2>
+                        <p>O acompanhamento de separação por carga, box e veículo está sendo desenvolvido.</p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon">📦</span>
+                                <span>Demanda por Box</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🚛</span>
+                                <span>Separação por Veículo</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">📊</span>
+                                <span>Dashboard em Tempo Real</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">📱</span>
+                                <span>Interface Responsiva</span>
+                            </div>
+                        </div>
+                        <div class="progress-section">
+                            <div class="progress-label">
+                                <span>Progresso do Desenvolvimento</span>
+                                <span class="progress-percentage">45%</span>
+                            </div>
+                            <div class="progress-bar-construction">
+                                <div class="progress-fill-construction"></div>
+                            </div>
+                        </div>
+                        <div class="construction-footer">
+                            <div class="estimated-time">
+                                <span class="time-icon">⏱️</span>
+                                <span>Previsão: Em breve</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h3>Preview das Funcionalidades</h3>
+                <div class="preview-grid">
+                    <div class="preview-card">
+                        <div class="preview-icon">📦</div>
+                        <h4>Controle de Box</h4>
+                        <p>Acompanhe a separação por box individual com status em tempo real.</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon">🚛</div>
+                        <h4>Gestão de Veículos</h4>
+                        <p>Acompanhe a separação por Veículos individual com status em tempo real.</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon">📈</div>
+                        <h4>Analytics Avançado</h4>
+                        <p>Relatórios detalhados de performance e produtividade.</p>
+                    </div>
+                    <div class="preview-card">
+                        <div class="preview-icon">📈</div>
+                        <h4>Analytics Avançado</h4>
+                        <p>performance e produtividade por onda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Gráfico de Separação -->
+    <div class="modal-grafico" id="chartModal">
+        <div class="modal-content-grafico">
+            <div class="modal-header-grafico">
+                <h2 class="modal-title-grafico">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                    </svg>
+                    <span id="chartTitle">Containers por Área de Separação</span>
+                </h2>
+                <button class="close-grafico" id="closeModalGrafico" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Seletor de Eixo Y -->
+            <div class="y-axis-selector">
+                <div class="y-axis-container">
+                    <label class="y-axis-label">Eixo Y (Agrupar por):</label>
+                    <div class="custom-select" id="yAxisSelector">
+                        <div class="select-header">
+                            <span class="select-text">Área de Separação</span>
+                            <i class="select-arrow">▼</i>
+                        </div>
+                        <div class="select-dropdown">
+                            <div class="select-options">
+                                <div class="select-option" data-value="Área Separação">
+                                    <input type="radio" name="yAxis" value="Área Separação" checked>
+                                    <label>Área de Separação</label>
+                                </div>
+                                <div class="select-option" data-value="Onda">
+                                    <input type="radio" name="yAxis" value="Onda">
+                                    <label>Onda</label>
+                                </div>
+                                <div class="select-option" data-value="Carga">
+                                    <input type="radio" name="yAxis" value="Carga">
+                                    <label>Carga</label>
+                                </div>
+                                <div class="select-option" data-value="Stage">
+                                    <input type="radio" name="yAxis" value="Stage">
+                                    <label>Stage</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Filtros de Separação -->
+            <fieldset class="filtros-categoria" id="filtrosContainer">
+                <legend>
+                    <span>Filtrar por:</span>
+                    <span class="active-filters-indicator" id="activeFiltersIndicator">0 filtros ativos</span>
+                    <button class="toggle-filters-btn" id="toggleFilters" title="Recolher/Expandir Filtros">
+                        <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </legend>
+                <div class="filters-content" id="filtersContent">
+                    <div class="filters-container">
+                    <div class="filter-group">
+                        <label>Área de Separação:</label>
+                        <div class="custom-select" id="areaFilter">
+                            <div class="select-header">
+                                <span class="select-text">Selecione...</span>
+                                <i class="select-arrow">▼</i>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="select-options"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Onda:</label>
+                        <div class="custom-select" id="ondaFilter">
+                            <div class="select-header">
+                                <span class="select-text">Selecione...</span>
+                                <i class="select-arrow">▼</i>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="select-options"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Carga:</label>
+                        <div class="custom-select" id="cargaFilter">
+                            <div class="select-header">
+                                <span class="select-text">Selecione...</span>
+                                <i class="select-arrow">▼</i>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="select-options"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Stage:</label>
+                        <div class="custom-select" id="stageFilter">
+                            <div class="select-header">
+                                <span class="select-text">Selecione...</span>
+                                <i class="select-arrow">▼</i>
+                            </div>
+                            <div class="select-dropdown">
+                                <div class="select-options"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-filters-container">
+                    <button id="clearFilters" class="clear-filters-btn">🔄 Limpar Filtros</button>
+                </div>
+                </div>
+            </fieldset>
+            
+            <!-- Container do Gráfico -->
+            <div class="grafico-container">
+                <div id="chartContainer">
+                    <div class="chart-container">
+                        <canvas id="separacaoChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/slimbar.js"></script>
+    <script src="/static/Separação/script.js"></script>
+    <script src="/static/Separação/modal-chart.js"></script>
+</body>
+</html>

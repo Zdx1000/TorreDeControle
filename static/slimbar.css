@@ -1,0 +1,515 @@
+/* Slimbar Container - Visível no desktop, oculto no mobile */
+.slimbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100vh;
+    background: linear-gradient(180deg, #1a1d29 0%, #0f1419 50%, #000000 100%);
+    border-right: 2px solid rgba(99, 102, 241, 0.3);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+    transform: translateX(0);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.slimbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+        rgba(99, 102, 241, 0.05) 0%,
+        rgba(168, 85, 247, 0.03) 50%,
+        rgba(239, 68, 68, 0.05) 100%
+    );
+    pointer-events: none;
+}
+
+.slimbar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 40px rgba(99, 102, 241, 0.3);
+}
+
+/* Logo/Brand no topo */
+.slimbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+    border-radius: 16px;
+    color: white;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.slimbar-logo::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #1e3a8a, #3b82f6, #60a5fa, #1e3a8a);
+    border-radius: 16px;
+    z-index: -1;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+.slimbar-logo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transition: left 0.8s ease;
+}
+
+.slimbar-logo:hover::after {
+    left: 100%;
+}
+
+.slimbar-logo:hover {
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.7);
+}
+
+/* Lista de navegação */
+.slimbar-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Item de navegação */
+.slimbar-item {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.slimbar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #9ca3af;
+    text-decoration: none;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.slimbar-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 16px;
+}
+
+.slimbar-link::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+}
+
+.slimbar-link svg {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.4s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.slimbar-link:hover {
+    color: white;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.slimbar-link:hover::before {
+    opacity: 1;
+}
+
+.slimbar-link:hover::after {
+    width: 60px;
+    height: 60px;
+}
+
+.slimbar-link:hover svg {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.slimbar-link:active {
+    transform: translateY(-1px) scale(1.05);
+}
+
+/* Indicador ativo */
+.slimbar-link.active {
+    color: white;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+    border-color: rgba(99, 102, 241, 0.8);
+}
+
+.slimbar-link.active::before {
+    opacity: 0;
+}
+
+.slimbar-link.active svg {
+    transform: scale(1.15);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Tooltip melhorado */
+.slimbar-tooltip {
+    position: absolute;
+    left: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #1f2937, #111827);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10003;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.slimbar-tooltip::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: #1f2937;
+}
+
+.slimbar-tooltip::after {
+    content: '';
+    position: absolute;
+    right: 99%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 9px solid transparent;
+    border-right-color: rgba(99, 102, 241, 0.3);
+}
+
+.slimbar-link:hover .slimbar-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(12px);
+}
+
+/* Animações */
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Efeito de partículas no hover */
+.slimbar-link:hover {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsividade melhorada para desktop */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .slimbar {
+        width: 65px;
+    }
+    
+    .slimbar-logo {
+        width: 45px;
+        height: 45px;
+        font-size: 0.875rem;
+    }
+    
+    .slimbar-link {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .slimbar-link svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .slimbar {
+        width: 75px;
+    }
+    
+    .slimbar-logo {
+        width: 55px;
+        height: 55px;
+        font-size: 1.125rem;
+    }
+    
+    .slimbar-link {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .slimbar-link svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* Mantém todas as outras regras mobile e acessibilidade inalteradas */
+@media (max-width: 768px) {
+    .slimbar {
+        transform: translateX(-100%);
+        width: 280px;
+        padding: 1.5rem 1rem;
+        z-index: 9999;
+    }
+    
+    .slimbar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+    }
+    
+    .slimbar-logo {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .slimbar-nav {
+        gap: 1rem;
+        align-items: flex-start;
+        padding-left: 1rem;
+    }
+    
+    .slimbar-item {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .slimbar-link {
+        width: 100%;
+        height: 100%;
+        justify-content: flex-start;
+        padding: 0 1rem;
+        gap: 1rem;
+        border-radius: 12px;
+    }
+    
+    .slimbar-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 10000;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 10px;
+        width: 44px;
+        height: 44px;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .slimbar-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+    
+    .slimbar-toggle:active {
+        transform: scale(0.95);
+    }
+    
+    .slimbar-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .slimbar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(2px);
+    }
+    
+    .slimbar-overlay.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    .slimbar-tooltip {
+        display: none;
+    }
+    
+    .slimbar-item::after {
+        content: attr(data-label);
+        position: absolute;
+        left: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@media (min-width: 769px) {
+    .slimbar {
+        transform: translateX(0);
+    }
+    
+    .slimbar-toggle {
+        display: none;
+    }
+    
+    .slimbar-overlay {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .slimbar-toggle {
+        width: 40px;
+        height: 40px;
+        top: 0.75rem;
+        left: 0.75rem;
+    }
+    
+    .slimbar-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Foco para navegação por teclado */
+.slimbar-link:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.slimbar-toggle:focus {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+/* Reduzir movimento para usuários sensíveis */
+@media (prefers-reduced-motion: reduce) {
+    .slimbar,
+    .slimbar-link,
+    .slimbar-tooltip,
+    .slimbar-toggle,
+    .slimbar-overlay {
+        transition: none;
+    }
+    
+    .slimbar-logo::before {
+        display: none;
+    }
+    
+    .slimbar-link:hover {
+        transform: none;
+    }
+    
+    @keyframes borderGlow {
+        0%, 100% { opacity: 0.5; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+    }
+}
+
+/* Alto contraste */
+@media (prefers-contrast: high) {
+    .slimbar {
+        background: #000;
+        border-right-color: #fff;
+    }
+    
+    .slimbar-link {
+        border-color: #fff;
+    }
+    
+    .slimbar-tooltip {
+        background: #000;
+        border: 1px solid #fff;
+    }
+}

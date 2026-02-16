@@ -1,0 +1,1357 @@
+/* Modal Styles - Seguindo o padrão do exemplo */
+.modal-grafico {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-grafico.show {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content-grafico {
+    background-color: #ffffff;
+    margin: 2% auto;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header-grafico {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-title-grafico {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-title-grafico svg {
+    width: 24px;
+    height: 24px;
+}
+
+.close-grafico {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.close-grafico:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.close-grafico svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Seletor de Eixo Y */
+.y-axis-selector {
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+    padding: 15px 30px;
+}
+
+.y-axis-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.y-axis-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 140px;
+    margin: 0;
+}
+
+.y-axis-selector .custom-select {
+    width: 200px;
+}
+
+.y-axis-selector .select-option {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.y-axis-selector .select-option:hover {
+    background-color: #f8f9fa;
+}
+
+.y-axis-selector .select-option.selected {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.y-axis-selector .select-option input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.y-axis-selector .select-option label {
+    flex: 1;
+    cursor: pointer;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Filtros de Categoria */
+.filtros-categoria {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin: 20px 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.filtros-categoria.collapsed {
+    padding: 10px 20px;
+}
+
+.filtros-categoria legend {
+    font-weight: 600;
+    color: #495057;
+    padding: 0 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Toggle Filters Button */
+.toggle-filters-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: #2a5298;
+    margin-left: 10px;
+    position: relative;
+}
+
+.toggle-filters-btn:hover {
+    background-color: rgba(42, 82, 152, 0.1);
+    transform: scale(1.1);
+}
+
+.toggle-filters-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.3);
+}
+
+.toggle-filters-btn.collapsed {
+    color: #28a745;
+}
+
+.toggle-filters-btn.collapsed:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.toggle-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-filters-btn.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+/* Filters Content */
+.filters-content {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.filters-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* When filters are collapsed, improve spacing */
+.filtros-categoria.collapsed {
+    margin-bottom: 10px;
+}
+
+.filtros-categoria.collapsed legend {
+    margin-bottom: 0;
+}
+
+/* Active filters indicator */
+.active-filters-indicator {
+    display: none;
+    background: #2a5298;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 10px;
+    animation: pulse 2s infinite;
+}
+
+.filtros-categoria.collapsed .active-filters-indicator {
+    display: inline-block;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Grafico Container */
+.grafico-container {
+    padding: 20px 30px 30px;
+}
+
+#chartContainer {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+/* Filters Container */
+.filters-container {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: end;
+    border: none;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 120px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+/* Custom Select Styles */
+.custom-select {
+    position: relative;
+    width: 100%;
+    min-width: 120px;
+}
+
+.select-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.select-header:hover {
+    border-color: #adb5bd;
+}
+
+.select-header.active {
+    border-color: #2a5298;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+}
+
+.select-text {
+    color: #495057;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.select-text.has-selection {
+    color: #333;
+    font-weight: 500;
+}
+
+.select-arrow {
+    color: #6c757d;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.select-header.active .select-arrow {
+    transform: rotate(180deg);
+}
+
+.select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #2a5298;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    /* Prevent dropdown from going outside viewport */
+    max-width: 100%;
+}
+
+.select-dropdown.active {
+    display: block;
+}
+
+.select-options {
+    padding: 5px 0;
+}
+
+.select-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.select-option:hover {
+    background-color: #f8f9fa;
+}
+
+.select-option.selected {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.select-option input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.select-option label {
+    flex: 1;
+    cursor: pointer;
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Filter Select - Remove old styles */
+.filter-select {
+    display: none;
+}
+
+.filter-select[multiple] {
+    display: none;
+}
+
+.filter-select option {
+    display: none;
+}
+
+.filter-select option:checked {
+    display: none;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #2a5298;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+}
+
+.filter-select:hover {
+    border-color: #adb5bd;
+}
+
+/* Clear Filters Button */
+.clear-filters-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.clear-filters-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+.clear-filters-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+}
+
+.clear-filters-btn:active {
+    transform: translateY(0);
+}
+
+.clear-filters-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+/* Chart Container */
+.chart-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    position: relative;
+    min-height: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+/* Expanded chart when filters are collapsed */
+.chart-container.filters-collapsed {
+    min-height: 500px;
+    max-height: 600px;
+    padding: 30px;
+}
+
+/* Ensure desktop chart returns to normal size when filters are expanded */
+.chart-container:not(.filters-collapsed) {
+    min-height: 400px;
+    max-height: 500px;
+    padding: 20px;
+}
+
+.chart-container canvas {
+    max-height: 400px !important;
+    transition: all 0.3s ease;
+}
+
+.chart-container.filters-collapsed canvas {
+    max-height: 500px !important;
+}
+
+/* Ensure smooth transitions for all chart elements */
+.chart-container * {
+    transition: all 0.3s ease;
+}
+
+/* Custom scrollbar for chart container */
+.chart-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chart-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.chart-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.chart-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Loading State */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    flex-direction: column;
+    color: #6c757d;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2a5298;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    flex-direction: column;
+    color: #dc3545;
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+/* No Data State */
+.no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    color: #6c757d;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content-grafico {
+        width: 95%;
+        margin: 2% auto;
+        max-height: 96vh;
+        /* Ensure modal doesn't exceed viewport */
+        max-width: calc(100vw - 20px);
+        /* Prevent horizontal overflow */
+        overflow-x: hidden;
+    }
+    
+    .modal-header-grafico {
+        padding: 12px 16px;
+    }
+    
+    .modal-title-grafico {
+        font-size: 1.4rem;
+    }
+    
+    /* Y-axis selector mobile optimization */
+    .y-axis-selector {
+        padding: 12px 16px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    
+    .y-axis-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .y-axis-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 4px;
+    }
+    
+    .y-axis-selector .custom-select {
+        width: 100%;
+    }
+    
+    .y-axis-selector .select-header {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        background: white;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .y-axis-selector .select-dropdown {
+        border-radius: 0 0 8px 8px;
+        border: 2px solid #2a5298;
+        border-top: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    
+    .y-axis-selector .select-option {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Filters section mobile optimization */
+    .filtros-categoria {
+        margin: 12px 16px;
+        padding: 12px;
+        border-radius: 12px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+    }
+    
+    .filtros-categoria.collapsed {
+        padding: 8px 12px;
+    }
+    
+    .filtros-categoria legend {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #495057;
+        padding: 0 8px;
+    }
+    
+    .toggle-filters-btn {
+        padding: 8px;
+        border-radius: 6px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    
+    .toggle-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .active-filters-indicator {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        border-radius: 12px;
+        margin-left: 8px;
+    }
+    
+    /* Filters container - mobile stacked layout */
+    .filters-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+        background: transparent;
+        border: none;
+    }
+    
+    .filter-group {
+        width: 100%;
+        min-width: auto;
+        flex: none;
+    }
+    
+    .filter-group label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 6px;
+        display: block;
+    }
+    
+    /* Custom select mobile optimization */
+    .custom-select {
+        width: 100%;
+        position: relative;
+        /* Prevent select from exceeding container */
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    .select-header {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        background: white;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        /* Prevent overflow */
+        overflow: hidden;
+        /* Ensure proper box sizing */
+        box-sizing: border-box;
+    }
+    
+    .select-header:hover {
+        border-color: #adb5bd;
+    }
+    
+    .select-header.active {
+        border-color: #2a5298;
+        box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+    }
+    
+    .select-text {
+        color: #495057;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 20px);
+    }
+    
+    .select-text.has-selection {
+        color: #333;
+        font-weight: 500;
+    }
+    
+    .select-arrow {
+        color: #6c757d;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+    
+    .select-header.active .select-arrow {
+        transform: rotate(180deg);
+    }
+    
+    .select-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 2px solid #2a5298;
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        max-height: 240px;
+        overflow-y: auto;
+        display: none;
+        /* Prevent dropdown from going outside viewport on mobile */
+        max-width: 100%;
+        /* Ensure dropdown stays within viewport bounds */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        /* Fix for iOS Safari */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .select-dropdown.active {
+        display: block;
+    }
+    
+    .select-options {
+        padding: 4px 0;
+    }
+    
+    .select-option {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .select-option:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .select-option.selected {
+        background-color: #e3f2fd;
+        color: #1976d2;
+    }
+    
+    .select-option input[type="checkbox"] {
+        margin-right: 12px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+    
+    .select-option label {
+        flex: 1;
+        cursor: pointer;
+        margin: 0;
+        font-weight: normal;
+        font-size: 0.9rem;
+        color: inherit;
+    }
+    
+    /* Clear filters button mobile */
+    .clear-filters-container {
+        margin-bottom: 16px;
+        padding: 0 4px;
+    }
+    
+    .clear-filters-btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 8px;
+        min-height: 48px;
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+    }
+    
+    .clear-filters-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(231, 76, 60, 0.3);
+    }
+    
+    .clear-filters-btn:active {
+        transform: translateY(0);
+    }
+    
+    /* Chart container mobile */
+    .grafico-container {
+        padding: 12px 16px 16px;
+    }
+    
+    .chart-container {
+        padding: 12px;
+        min-height: 300px;
+        max-height: 350px;
+        border-radius: 12px;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+    
+    .chart-container.filters-collapsed {
+        min-height: 350px;
+        max-height: 400px;
+        padding: 20px;
+    }
+    
+    /* Ensure mobile chart returns to normal size when filters are expanded */
+    .chart-container:not(.filters-collapsed) {
+        min-height: 300px;
+        max-height: 350px;
+        padding: 12px;
+    }
+}
+    
+    .select-header {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    .select-option {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+    
+    .clear-filters-container {
+        margin-bottom: 15px;
+    }
+    
+    .clear-filters-btn {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+    }
+    
+    .chart-container {
+        padding: 15px;
+        min-height: 300px;
+    }
+
+
+@media (max-width: 480px) {
+    .modal-content-grafico {
+        width: 98%;
+        margin: 1% auto;
+        max-height: 98vh;
+        border-radius: 8px;
+        /* Ensure modal doesn't exceed viewport on small screens */
+        max-width: calc(100vw - 10px);
+        /* Prevent any horizontal overflow */
+        overflow-x: hidden;
+        /* Ensure content stays within bounds */
+        box-sizing: border-box;
+    }
+    
+    .modal-header-grafico {
+        padding: 10px 12px;
+    }
+    
+    .modal-title-grafico {
+        font-size: 1.2rem;
+    }
+    
+    .close-grafico {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
+    
+    /* Y-axis selector ultra-mobile */
+    .y-axis-selector {
+        padding: 10px 12px;
+    }
+    
+    .y-axis-container {
+        gap: 6px;
+    }
+    
+    .y-axis-label {
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+    }
+    
+    .y-axis-selector .select-header {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        border-radius: 6px;
+    }
+    
+    .y-axis-selector .select-option {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    /* Filters ultra-mobile */
+    .filtros-categoria {
+        margin: 8px 12px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    .filtros-categoria.collapsed {
+        padding: 6px 10px;
+    }
+    
+    .filtros-categoria legend {
+        font-size: 0.85rem;
+        padding: 0 6px;
+    }
+    
+    .toggle-filters-btn {
+        padding: 6px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+    
+    .toggle-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .active-filters-indicator {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        margin-left: 6px;
+    }
+    
+    .filters-container {
+        gap: 10px;
+    }
+    
+    .filter-group {
+        margin-bottom: 4px;
+    }
+    
+    .filter-group label {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+    
+    /* Ultra-mobile select optimization */
+    .select-header {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        border-radius: 6px;
+        border-width: 1px;
+    }
+    
+    .select-text {
+        font-size: 0.85rem;
+        max-width: calc(100% - 18px);
+    }
+    
+    .select-arrow {
+        font-size: 0.8rem;
+    }
+    
+    .select-dropdown {
+        border-radius: 0 0 6px 6px;
+        border-width: 1px;
+        max-height: 200px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+    
+    .select-option {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    .select-option input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+    
+    .select-option label {
+        font-size: 0.85rem;
+    }
+    
+    /* Clear button ultra-mobile */
+    .clear-filters-container {
+        margin-bottom: 12px;
+        padding: 0 2px;
+    }
+    
+    .clear-filters-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+        border-radius: 6px;
+    }
+    
+    /* Chart ultra-mobile */
+    .grafico-container {
+        padding: 8px 12px 12px;
+    }
+    
+    .chart-container {
+        padding: 8px;
+        min-height: 250px;
+        max-height: 300px;
+        border-radius: 8px;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+    
+    .chart-container.filters-collapsed {
+        min-height: 300px;
+        max-height: 350px;
+        padding: 16px;
+    }
+    
+    /* Ensure ultra-mobile chart returns to normal size when filters are expanded */
+    .chart-container:not(.filters-collapsed) {
+        min-height: 250px;
+        max-height: 300px;
+        padding: 8px;
+    }
+    
+    /* Optimize dropdown scrolling for mobile */
+    .select-dropdown::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .select-dropdown::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+    }
+    
+    .select-dropdown::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 2px;
+    }
+    
+    .select-dropdown::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+}
+
+/* Custom Scrollbar */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Mobile Touch Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch device optimizations */
+    .select-header {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .select-option {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .toggle-filters-btn {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .clear-filters-btn {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .close-grafico {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* Improve accessibility for small screens */
+@media (max-width: 480px) {
+    /* Ensure minimum touch target size of 44px */
+    .select-header,
+    .select-option,
+    .toggle-filters-btn,
+    .clear-filters-btn,
+    .close-grafico {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Better spacing for touch */
+    .select-option {
+        margin: 1px 0;
+    }
+    
+    .select-option:first-child {
+        margin-top: 0;
+    }
+    
+    .select-option:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Loading spinner mobile optimization */
+@media (max-width: 768px) {
+    .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border-width: 3px;
+    }
+    
+    .loading {
+        height: 300px;
+    }
+    
+    .loading p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Error state mobile optimization */
+@media (max-width: 768px) {
+    .error-state {
+        height: 300px;
+    }
+    
+    .error-icon {
+        font-size: 2.5rem;
+    }
+    
+    .error-state p {
+        font-size: 0.9rem;
+        padding: 0 16px;
+        text-align: center;
+    }
+}
+
+/* Mobile Modal Optimizations */
+.mobile-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 9999 !important;
+}
+
+.mobile-modal .modal-content-grafico {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    overflow-y: auto !important;
+}
+
+/* Ensure proper stacking for mobile dropdowns */
+@media (max-width: 768px) {
+    .select-dropdown.active {
+        z-index: 10000;
+        /* Prevent dropdown from going outside viewport */
+        max-height: 50vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Ensure dropdown stays within bounds */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+    
+    /* Adjust dropdown position for better mobile experience */
+    .custom-select {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .custom-select .select-dropdown.active {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1001;
+        max-height: 200px;
+        /* Prevent horizontal overflow */
+        max-width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve filter section spacing */
+    .filtros-categoria {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Better visual hierarchy for mobile */
+    .filter-group {
+        background: white;
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+    }
+    
+    .filter-group label {
+        color: #495057;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.75rem;
+    }
+    
+    /* Better visual feedback for selected options */
+    .select-option.selected {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border-left: 3px solid #2196f3;
+        font-weight: 500;
+    }
+    
+    .select-option.selected input[type="checkbox"] {
+        accent-color: #2196f3;
+    }
+    
+    /* Improve active filter indicator */
+    .active-filters-indicator {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(42, 82, 152, 0.3);
+    }
+    
+    /* Better button styling */
+    .clear-filters-btn {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        box-shadow: 0 3px 6px rgba(255, 107, 107, 0.3);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .clear-filters-btn:hover {
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        transform: translateY(-1px);
+    }
+    
+    .clear-filters-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+    }
+}
+
+/* No data state mobile optimization */
+@media (max-width: 768px) {
+    .no-data {
+        height: 300px;
+        font-size: 1rem;
+        padding: 0 16px;
+    }
+}

@@ -1,0 +1,378 @@
+/* =============================================================================
+   PROJETO PENDÊNCIA E CORTE - PÁGINA EM CONSTRUÇÃO
+   ============================================================================= */
+
+:root {
+    --primary-color: #f59e0b;
+    --secondary-color: #d97706;
+    --accent-color: #fbbf24;
+    --warning-color: #ef4444;
+    --success-color: #10b981;
+    --construction-bg: #fef3c7;
+    --construction-border: #f59e0b;
+}
+
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+/* =============================================================================
+   SEÇÃO EM CONSTRUÇÃO
+   ============================================================================= */
+
+.under-construction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 2rem;
+    text-align: center;
+}
+
+.construction-icon {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.main-icon {
+    font-size: 4rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.floating-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+}
+
+.float-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: float 3s ease-in-out infinite;
+}
+
+.float-icon:nth-child(1) {
+    top: 20%;
+    left: 80%;
+    animation-delay: 0s;
+}
+
+.float-icon:nth-child(2) {
+    bottom: 30%;
+    left: 10%;
+    animation-delay: 1s;
+}
+
+.float-icon:nth-child(3) {
+    top: 10%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.construction-content {
+    max-width: 800px;
+    width: 100%;
+}
+
+.construction-content h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.construction-content > p {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/* =============================================================================
+   GRID DE FUNCIONALIDADES
+   ============================================================================= */
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.6s ease forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--construction-border);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.feature-card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: #6b7280;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* =============================================================================
+   BARRA DE PROGRESSO
+   ============================================================================= */
+
+.progress-section {
+    background: var(--construction-bg);
+    border: 2px solid var(--construction-border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.progress-section h4 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 6px;
+    width: 0%;
+    animation: progressFill 2s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: progressShine 2s ease-out infinite;
+}
+
+.progress-text {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* =============================================================================
+   INFORMAÇÕES DE ETA
+   ============================================================================= */
+
+.eta-info {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.eta-info p {
+    margin: 0.5rem 0;
+    color: #374151;
+    font-size: 1rem;
+}
+
+.eta-info strong {
+    color: var(--primary-color);
+}
+
+/* =============================================================================
+   ANIMAÇÕES
+   ============================================================================= */
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 75%;
+    }
+}
+
+@keyframes progressShine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* =============================================================================
+   RESPONSIVIDADE
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .under-construction {
+        min-height: 60vh;
+        padding: 1rem;
+    }
+    
+    .construction-content h2 {
+        font-size: 2rem;
+    }
+    
+    .construction-content > p {
+        font-size: 1rem;
+    }
+    
+    .main-icon {
+        font-size: 3rem;
+    }
+    
+    .floating-icons {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .float-icon {
+        font-size: 1.2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.2rem;
+    }
+    
+    .progress-section {
+        padding: 1.5rem;
+    }
+    
+    .eta-info {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .under-construction {
+        padding: 0.5rem;
+    }
+    
+    .construction-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .main-icon {
+        font-size: 2.5rem;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+    
+    .feature-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* =============================================================================
+   PERFORMANCE E OTIMIZAÇÕES
+   ============================================================================= */
+
+.feature-card,
+.progress-section,
+.eta-info {
+    will-change: transform;
+}
+
+.main-icon,
+.float-icon {
+    will-change: transform;
+}
+
+.progress-fill {
+    will-change: width;
+}

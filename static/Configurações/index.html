@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Dashboard</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/slimbar.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/Configurações/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>⚙️ Configurações do Sistema</h1>
+                <p>Gerencie preferências e configurações do dashboard</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="config-grid">
+                <div class="config-section">
+                    <div class="section-header">
+                        <h3>🎨 Aparência</h3>
+                        <p>Personalize a interface do sistema</p>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label for="theme">Tema</label>
+                        <select id="theme" class="config-select">
+                            <option value="light">Claro</option>
+                            <option value="dark">Escuro</option>
+                            <option value="auto">Automático</option>
+                        </select>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label for="fontSize">Tamanho da Fonte</label>
+                        <select id="fontSize" class="config-select">
+                            <option value="small">Pequena</option>
+                            <option value="medium" selected>Média</option>
+                            <option value="large">Grande</option>
+                        </select>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="animations" checked>
+                            <span class="switch"></span>
+                            Animações
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <div class="section-header">
+                        <h3>📊 Dashboard</h3>
+                        <p>Configure exibição de dados</p>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label for="updateInterval">Intervalo de Atualização</label>
+                        <select id="updateInterval" class="config-select">
+                            <option value="30">30 segundos</option>
+                            <option value="60" selected>1 minuto</option>
+                            <option value="300">5 minutos</option>
+                            <option value="600">10 minutos</option>
+                        </select>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="notifications" checked>
+                            <span class="switch"></span>
+                            Notificações
+                        </label>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="sounds">
+                            <span class="switch"></span>
+                            Sons de Alerta
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <div class="section-header">
+                        <h3>🔧 Sistema</h3>
+                        <p>Configurações técnicas</p>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label for="apiUrl">URL da API</label>
+                        <input type="text" id="apiUrl" class="config-input" value="http://localhost:8000/api" placeholder="URL da API">
+                    </div>
+                    
+                    <div class="config-item">
+                        <label for="timeout">Timeout (segundos)</label>
+                        <input type="number" id="timeout" class="config-input" value="30" min="5" max="120">
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="debug">
+                            <span class="switch"></span>
+                            Modo Debug
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <div class="section-header">
+                        <h3>📱 Módulos</h3>
+                        <p>Ativar/desativar funcionalidades</p>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="moduleSeparacao" checked>
+                            <span class="switch"></span>
+                            Separação
+                        </label>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="modulePendencia" checked>
+                            <span class="switch"></span>
+                            Pendência e Corte
+                        </label>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="moduleCarregamento" checked>
+                            <span class="switch"></span>
+                            Carregamento
+                        </label>
+                    </div>
+                    
+                    <div class="config-item">
+                        <label class="switch-label">
+                            <input type="checkbox" id="moduleHoraHora" checked>
+                            <span class="switch"></span>
+                            Hora a Hora
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <div class="section-header">
+                        <h3>⏰ Demanda - Turnos de Trabalho</h3>
+                        <p>Configure horários dos turnos de trabalho</p>
+                    </div>
+                    
+                    <div class="turnos-compact">
+                        <div class="turno-compact">
+                            <div class="turno-header">
+                                <span class="turno-badge">1º Turno</span>
+                                <label class="switch-label-mini">
+                                    <input type="checkbox" id="turno1HoraExtra">
+                                    <span class="switch-mini"></span>
+                                    <small>+2h Extra</small>
+                                </label>
+                            </div>
+                            <div class="turno-times">
+                                <input type="time" id="turno1Inicio" class="time-input" value="05:00">
+                                <span class="separator">às</span>
+                                <input type="time" id="turno1Fim" class="time-input" value="13:40">
+                            </div>
+                            <div class="hora-extra-mini" id="turno1ExtraInfo" style="display: none;">
+                                <small>Extra: até 15:40</small>
+                            </div>
+                        </div>
+                        
+                        <div class="turno-compact">
+                            <div class="turno-header">
+                                <span class="turno-badge">2º Turno</span>
+                                <label class="switch-label-mini">
+                                    <input type="checkbox" id="turno2HoraExtra">
+                                    <span class="switch-mini"></span>
+                                    <small>+2h Extra</small>
+                                </label>
+                            </div>
+                            <div class="turno-times">
+                                <input type="time" id="turno2Inicio" class="time-input" value="15:20">
+                                <span class="separator">às</span>
+                                <input type="time" id="turno2Fim" class="time-input" value="23:40">
+                            </div>
+                            <div class="hora-extra-mini" id="turno2ExtraInfo" style="display: none;">
+                                <small>Extra: até 01:40</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-actions">
+                <button class="btn btn-primary" onclick="saveConfig()">
+                    💾 Salvar Configurações
+                </button>
+                <button class="btn btn-secondary" onclick="resetConfig()">
+                    🔄 Restaurar Padrões
+                </button>
+                <button class="btn btn-danger" onclick="clearData()">
+                    🗑️ Limpar Dados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/slimbar.js"></script>
+    <script src="/static/Configurações/script.js"></script>
+</body>
+</html>

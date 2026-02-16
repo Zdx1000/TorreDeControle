@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="Dashboard para controle de separação por setor - Sincronismo">
+    <meta name="theme-color" content="#1f2937">
+    <title>Dashboard Sincronismo</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="/static/style.css" as="style">
+    <link rel="preload" href="/static/grafico-modal.css" as="style">
+    <link rel="preload" href="/static/slimbar.css" as="style">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/grafico-modal.css">
+    <link rel="stylesheet" href="/static/slimbar.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>Sincronismo</h1>
+                <p>Controle de Separação por Setor</p>
+            </div>
+            <div class="header-actions">
+                <button class="chart-btn" id="chartBtn">
+                    <svg class="chart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                    </svg>
+                    Gráficos
+                </button>
+            </div>
+        </div>
+        <div class="stats" id="stats">
+            <div class="stat-card clickable" id="totalSetoresCard">
+                <div class="stat-icon stat-icon-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Total de Setores</h3>
+                    <div class="number" id="totalSetores">-</div>
+                </div>
+            </div>
+            <div class="stat-card clickable" id="linhasSeparadasCard">
+                <div class="stat-icon stat-icon-success">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Linhas Separadas</h3>
+                    <div class="number" id="totalSeparadas">-</div>
+                </div>
+            </div>
+            <div class="stat-card clickable" id="linhasRestantesCard">
+                <div class="stat-icon stat-icon-warning">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>Linhas Restantes</h3>
+                    <div class="number" id="totalRestantes">-</div>
+                </div>
+            </div>
+            <div class="stat-card clickable" id="percentualConcluidoCard">
+                <div class="stat-icon stat-icon-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="m15 9-6 6"></path>
+                        <path d="m9 9 6 6"></path>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <h3>% Concluído</h3>
+                    <div class="number" id="percentualConcluido">-</div>
+                    <div class="progress-ring">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <defs>
+                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#60a5fa;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle" id="progressCircle"
+                                stroke-dasharray="0, 100"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <div class="table-header">
+                <div class="table-title">
+                    <h2>Detalhes por Setor</h2>
+                    <p>Acompanhe o progresso de cada setor em tempo real</p>
+                </div>
+                <div class="table-actions">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <label for="searchInput" class="sr-only">Pesquisar setor</label>
+                        <input type="text" id="searchInput" placeholder="Pesquisar setor...">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="th-content">
+                                    <span>Setor</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Descrição</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Linhas Separadas</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Linhas Restantes</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Containers Restantes</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Linhas Totais</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Progresso</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th-content">
+                                    <span>Meta</span>
+                                    <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 9l4-4 4 4"></path>
+                                        <path d="m16 15-4 4-4-4"></path>
+                                    </svg>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="timestamp" id="timestamp">
+            Carregando dados...
+        </div>
+        
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Carregando dados...</p>
+        </div>
+        
+        <div class="error" id="error" style="display: none;">
+            <p>Erro ao carregar os dados. Tente novamente.</p>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes dos Setores -->
+    <div class="modal-overlay" id="modalSetores" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </div>
+                    <div class="modal-title-section">
+                        <h2>Detalhes dos Setores</h2>
+                        <p>Visão completa de todos os setores demanda</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModal" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-stats-summary">
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Total de Setores</span>
+                        <span class="modal-stat-value" id="modalTotalSetores">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Total de Linhas</span>
+                        <span class="modal-stat-value" id="modalTotalLinhas">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Total de Containers</span>
+                        <span class="modal-stat-value" id="modalTotalContainers">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Total de Itens</span>
+                        <span class="modal-stat-value" id="modalTotalItens">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Peso Previsto Total</span>
+                        <span class="modal-stat-value" id="modalTotalPesoPrevisto">-</span>
+                    </div>
+                </div>
+                <div class="modal-table-wrapper">
+                    <table class="modal-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Setor</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Descrição</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Linhas Totais</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Total de Containers</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Quantidade de Itens</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Peso Previsto</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalTabelaBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Linhas Separadas -->
+    <div class="modal-overlay" id="modalLinhasSeparadas" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                            <polyline points="9 11 12 14 22 4"></polyline>
+                        </svg>
+                    </div>
+                    <div class="modal-title-section">
+                        <h2>Linhas Separadas por Setor</h2>
+                        <p>Detalhamento da produção já separada</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModalLinhasSeparadas" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-stats-summary">
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Total de Linhas</span>
+                        <span class="modal-stat-value" id="modalTotalLinhasSeparadas">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Peso Separado</span>
+                        <span class="modal-stat-value" id="modalTotalPesoSeparado">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Containers Separados</span>
+                        <span class="modal-stat-value" id="modalTotalContainersSeparados">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Itens Separados</span>
+                        <span class="modal-stat-value" id="modalTotalItensSeparados">-</span>
+                    </div>
+                </div>
+                <div class="modal-table-wrapper">
+                    <table class="modal-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Setor</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Descrição</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Linhas Separadas</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Peso Separado (kg)</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Containers Separados</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Itens Separados</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalLinhasSeparadasBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Linhas Restantes -->
+    <div class="modal-overlay" id="modalLinhasRestantes" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                            <path d="M8 15l4-4 4 4"></path>
+                        </svg>
+                    </div>
+                    <div class="modal-title-section">
+                        <h2>Linhas Restantes por Setor</h2>
+                        <p>Setores com trabalho pendente para separação</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModalLinhasRestantes" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-stats-summary">
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Setores Pendentes</span>
+                        <span class="modal-stat-value" id="modalSetoresPendentes">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Linhas Restantes</span>
+                        <span class="modal-stat-value" id="modalTotalLinhasRestantes">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Peso Restante</span>
+                        <span class="modal-stat-value" id="modalTotalPesoRestante">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Containers Restantes</span>
+                        <span class="modal-stat-value" id="modalTotalContainersRestantes">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Itens Restantes</span>
+                        <span class="modal-stat-value" id="modalTotalItensRestantes">-</span>
+                    </div>
+                </div>
+                <div class="modal-table-wrapper">
+                    <table class="modal-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Setor</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Descrição</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Linhas Restantes</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Peso Restante (kg)</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Containers Restantes</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Itens Restantes</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Prioridade</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalLinhasRestantesBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Progresso -->
+    <div class="modal-overlay" id="modalProgresso" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="16 12 12 8 8 12"></polyline>
+                            <polyline points="12 16 12 8"></polyline>
+                        </svg>
+                    </div>
+                    <div class="modal-title-section">
+                        <h2>Progresso por Setor</h2>
+                        <p>Análise detalhada do desempenho e previsões</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModalProgresso" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-stats-summary">
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Progresso Geral</span>
+                        <span class="modal-stat-value" id="modalProgressoGeral">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Setores Concluídos</span>
+                        <span class="modal-stat-value" id="modalSetoresConcluidos">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Média de Produtividade</span>
+                        <span class="modal-stat-value" id="modalMediaProdutividade">-</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-label">Previsão de Conclusão</span>
+                        <span class="modal-stat-value" id="modalPrevisaoConclusao">-</span>
+                    </div>
+                </div>
+                <div class="modal-table-wrapper">
+                    <table class="modal-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Setor</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Descrição</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Progresso</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Média L/H</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Linhas previstas</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Horário Finalização</span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="modal-th-content">
+                                        <span>Status</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalProgressoBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Gráfico de Setores -->
+    <div class="modal-grafico" id="modalGrafico">
+        <div class="modal-content-grafico">
+            <div class="modal-header-grafico">
+                <h2 class="modal-title-grafico">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                    </svg>
+                    Progresso por Setor
+                </h2>
+                <button class="close-grafico" id="closeModalGrafico" title="Fechar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Filtros de Categoria -->
+            <fieldset class="filtros-categoria">
+                <legend>Filtrar por Categoria:</legend>
+                <button class="btn-filtro filter-btn active" data-filter="todos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    </svg>
+                    Todos
+                </button>
+                <button class="btn-filtro filter-btn" data-filter="fracionado">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    </svg>
+                    Fracionado
+                </button>
+                <button class="btn-filtro filter-btn" data-filter="carga-grossa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="3" width="15" height="13"/>
+                        <circle cx="5.5" cy="18.5" r="2.5"/>
+                    </svg>
+                    Carga Grossa
+                </button>
+                <button class="btn-filtro filter-btn" data-filter="arm-20">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                    </svg>
+                    ARM e 20
+                </button>
+            </fieldset>
+            
+            <!-- Container do Gráfico -->
+            <div class="grafico-container">
+                <div id="chartContainer">
+                    <div id="graficoPorSetor"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/script.js"></script>
+    <script src="/static/slimbar.js"></script>
+</body>
+</html>

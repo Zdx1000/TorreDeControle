@@ -1,0 +1,6 @@
+py -m venv venv
+venv\Scripts\activate
+
+uvicorn servidor:site --host 0.0.0.0 --port 80
+
+ngrok http --url=www.acompanhamento-produccao-hora-a-hora.com 80

@@ -1,0 +1,692 @@
+/* Tema Hora a Hora - Paleta Azul Escuro */
+:root {
+    --primary-color: #1e3a8a;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e40af;
+    --accent-color: #0ea5e9;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --dark-bg: #0f172a;
+    --dark-card: #1e293b;
+    --dark-surface: #334155;
+    --background-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    --card-shadow: 0 8px 32px rgba(15, 23, 42, 0.4);
+    --hover-shadow: 0 12px 48px rgba(30, 41, 59, 0.6);
+    --glass-bg: rgba(30, 41, 59, 0.8);
+    --glass-border: rgba(59, 130, 246, 0.2);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --construction-color: #fbbf24;
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Container */
+.container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Header */
+.header {
+    background: var(--background-gradient);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--card-shadow);
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-content p {
+    margin: 10px 0 0 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    color: var(--text-secondary);
+}
+
+/* Badge de Construção */
+.construction-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--construction-color);
+    color: var(--dark-bg);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 15px;
+    animation: pulse 2s infinite;
+}
+
+.construction-badge::before {
+    content: '🚧';
+    font-size: 1.1rem;
+}
+
+/* Time Selector */
+.time-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-btn {
+    padding: 12px 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.time-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.time-btn:hover::before {
+    left: 100%;
+}
+
+.time-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(30, 58, 138, 0.4);
+    border-color: var(--accent-color);
+}
+
+.time-btn.active {
+    background: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(30, 58, 138, 0.5);
+    border-color: var(--accent-color);
+}
+
+.time-btn.active::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+/* Hourly Grid */
+.hourly-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.hourly-card {
+    background: var(--glass-bg);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.hourly-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 16px 16px 0 0;
+}
+
+.hourly-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+    border-color: var(--accent-color);
+}
+
+.hourly-card h3 {
+    margin: 0 0 20px 0;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Chart */
+.hourly-chart {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-surface);
+    border-radius: 12px;
+    border: 2px dashed var(--accent-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.hourly-chart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.1), transparent);
+    animation: shimmer 4s infinite;
+}
+
+.chart-placeholder {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Performance Stats */
+.performance-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.perf-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--dark-surface);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.perf-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.1));
+    transition: width 0.3s ease;
+}
+
+.perf-item:hover::before {
+    width: 100%;
+}
+
+.perf-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
+}
+
+.perf-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+.perf-value {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.perf-item:hover .perf-value {
+    color: var(--text-primary);
+}
+
+/* Table Container */
+.hourly-table-container {
+    background: rgba(248, 250, 252, 0.95);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.hourly-table-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 16px 16px 0 0;
+}
+
+.hourly-table-container h3 {
+    margin: 0 0 20px 0;
+    color: #1e293b;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Table */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.hourly-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(248, 250, 252, 0.95);
+}
+
+.hourly-table th {
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
+    color: var(--text-primary);
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    position: relative;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.hourly-table th::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.hourly-table td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+    color: #334155;
+    transition: all 0.3s ease;
+    background: rgba(248, 250, 252, 0.8);
+}
+
+.hourly-table tbody tr {
+    transition: all 0.3s ease;
+    background: rgba(248, 250, 252, 0.9);
+}
+
+.hourly-table tbody tr:nth-child(even) {
+    background: rgba(241, 245, 249, 0.9);
+}
+
+.hourly-table tbody tr:hover {
+    background: rgba(59, 130, 246, 0.15);
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.hourly-table tbody tr:hover td {
+    color: #1e293b;
+    background: transparent;
+}
+
+.hourly-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.status-badge:hover::before {
+    left: 100%;
+}
+
+.status-success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success-color);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-success:hover {
+    background: rgba(16, 185, 129, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.status-warning {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning-color);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-warning:hover {
+    background: rgba(245, 158, 11, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.status-danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--danger-color);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-danger:hover {
+    background: rgba(239, 68, 68, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .hourly-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .header-content p {
+        font-size: 1rem;
+    }
+    
+    .construction-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    
+    .time-selector {
+        gap: 8px;
+        justify-content: center;
+    }
+    
+    .time-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    .hourly-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .hourly-card {
+        padding: 20px;
+    }
+    
+    .hourly-chart {
+        height: 200px;
+    }
+    
+    .performance-stats {
+        gap: 15px;
+    }
+    
+    .perf-item {
+        padding: 12px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .perf-item:hover {
+        transform: translateY(-3px);
+    }
+    
+    .hourly-table-container {
+        padding: 15px;
+    }
+    
+    .hourly-table th,
+    .hourly-table td {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .status-badge {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .time-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .hourly-chart {
+        height: 150px;
+    }
+    
+    .chart-placeholder {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    .perf-value {
+        font-size: 1.1rem;
+    }
+    
+    .hourly-table th,
+    .hourly-table td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-surface);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Focus states for accessibility */
+.time-btn:focus,
+.status-badge:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .header {
+        background: none !important;
+        color: black !important;
+    }
+    
+    .time-selector {
+        display: none;
+    }
+    
+    .hourly-card,
+    .hourly-table-container {
+        box-shadow: none !important;
+        border: 1px solid #ddd;
+    }
+}

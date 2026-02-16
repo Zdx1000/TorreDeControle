@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora a Hora - Dashboard</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/slimbar.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/Hora a Hora/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>⏰ Monitoramento Hora a Hora</h1>
+                <p>Análise de produção e performance em tempo real</p>
+                <div class="construction-badge">
+                    Em Desenvolvimento - Versão Beta
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="time-selector fade-in-up">
+                <button class="time-btn active" data-period="hoje">Hoje</button>
+                <button class="time-btn" data-period="ontem">Ontem</button>
+                <button class="time-btn" data-period="semana">Esta Semana</button>
+                <button class="time-btn" data-period="mes">Este Mês</button>
+            </div>
+            
+            <div class="hourly-grid">
+                <div class="hourly-card fade-in-up">
+                    <h3>📊 Produção por Hora</h3>
+                    <div class="hourly-chart" id="producaoChart">
+                        <div class="chart-placeholder loading">
+                            🔄 Carregando dados de produção...
+                            <br><small>Sistema em desenvolvimento</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hourly-card fade-in-up">
+                    <h3>⚡ Performance Atual</h3>
+                    <div class="performance-stats">
+                        <div class="perf-item">
+                            <span class="perf-label">Hora Atual</span>
+                            <span class="perf-value" id="horaAtual">-</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">Produzido</span>
+                            <span class="perf-value" id="produzidoHora">-</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">Meta Hora</span>
+                            <span class="perf-value" id="metaHora">-</span>
+                        </div>
+                        <div class="perf-item">
+                            <span class="perf-label">% Meta</span>
+                            <span class="perf-value" id="percentualMeta">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hourly-table-container fade-in-up">
+                <h3>📋 Detalhes por Hora</h3>
+                <div class="table-wrapper">
+                    <table class="hourly-table" id="hourlyTable">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Produzido</th>
+                                <th>Meta</th>
+                                <th>%</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hourlyTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/slimbar.js"></script>
+    <script src="/static/Hora a Hora/script.js"></script>
+</body>
+</html>

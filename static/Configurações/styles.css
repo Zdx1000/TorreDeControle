@@ -1,0 +1,598 @@
+/* Tema Configurações */
+:root {
+    --primary-color: #2E7D32;
+    --primary-light: #4CAF50;
+    --primary-dark: #1B5E20;
+    --accent-color: #66BB6A;
+    --background-gradient: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);
+    --card-shadow: 0 8px 32px rgba(46, 125, 50, 0.2);
+    --hover-shadow: 0 12px 48px rgba(46, 125, 50, 0.3);
+    --success-color: #4CAF50;
+    --warning-color: #FF9800;
+    --danger-color: #F44336;
+}
+
+/* Container */
+.container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    background: var(--background-gradient);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--card-shadow);
+    color: white;
+    text-align: center;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content p {
+    margin: 10px 0 0 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Config Grid */
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.config-section {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(46, 125, 50, 0.1);
+}
+
+.section-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h3 {
+    margin: 0 0 8px 0;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.section-header p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Config Items */
+.config-item {
+    margin-bottom: 20px;
+}
+
+.config-item label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.config-select,
+.config-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.config-select:focus,
+.config-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+/* Switch */
+.switch-label {
+    display: flex !important;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+.switch {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: #ccc;
+    border-radius: 26px;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+}
+
+.switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + .switch {
+    background: var(--primary-color);
+}
+
+input[type="checkbox"]:checked + .switch::after {
+    transform: translateX(24px);
+}
+
+/* Actions */
+.config-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.3);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108, 117, 125, 0.3);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(244, 67, 54, 0.3);
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: var(--success-color);
+}
+
+.notification.error {
+    background: var(--danger-color);
+}
+
+.notification.warning {
+    background: var(--warning-color);
+}
+
+/* Configurações de Turnos - Versão Compacta */
+.turnos-compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.turno-compact {
+    padding: 15px;
+    border: 2px solid #e8f5e8;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fafafa 0%, #f8f9fa 100%);
+}
+
+.turno-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.turno-badge {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.switch-label-mini {
+    display: flex !important;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 !important;
+    gap: 6px;
+}
+
+.switch-mini {
+    position: relative;
+    width: 36px;
+    height: 18px;
+    background: #ccc;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+}
+
+.switch-mini::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .switch-mini {
+    background: var(--primary-color);
+}
+
+input[type="checkbox"]:checked + .switch-mini::after {
+    transform: translateX(18px);
+}
+
+.turno-times {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.time-input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.time-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+}
+
+.separator {
+    color: #666;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.hora-extra-mini {
+    background: #e8f5e8;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+.hora-extra-mini small {
+    color: var(--primary-dark);
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.switch-label-mini small {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header {
+        padding: 20px;
+    }
+    
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .header-content p {
+        font-size: 1rem;
+    }
+    
+    .config-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .config-section {
+        padding: 20px;
+    }
+    
+    .section-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .config-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        justify-content: center;
+    }
+    
+    .turno-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .turno-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .turno-title {
+        font-size: 1.1rem;
+        padding: 6px 12px;
+    }
+    
+    input[type="time"] {
+        padding: 10px 12px;
+    }
+    
+    .turnos-compact {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .turno-compact {
+        padding: 18px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .turno-header {
+        margin-bottom: 15px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .turno-badge {
+        font-size: 0.9rem;
+        padding: 6px 16px;
+        border-radius: 25px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
+    }
+    
+    .switch-label-mini {
+        gap: 8px;
+    }
+    
+    .switch-label-mini small {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .switch-mini {
+        width: 40px;
+        height: 22px;
+    }
+    
+    .switch-mini::after {
+        width: 18px;
+        height: 18px;
+        top: 2px;
+        left: 2px;
+    }
+    
+    input[type="checkbox"]:checked + .switch-mini::after {
+        transform: translateX(18px);
+    }
+    
+    .turno-times {
+        margin-bottom: 12px;
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .time-input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        border: 2px solid #dee2e6;
+        background: white;
+        font-weight: 500;
+    }
+    
+    .time-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
+    
+    .separator {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .hora-extra-mini {
+        background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+        border: 1px solid #c3e6c3;
+        border-radius: 10px;
+        padding: 10px 12px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hora-extra-mini small {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+}
+
+@media (max-width: 480px) {
+    .config-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .config-section {
+        padding: 15px;
+    }
+    
+    .config-select,
+    .config-input {
+        padding: 10px 12px;
+    }
+    
+    .turno-section {
+        padding: 12px;
+    }
+    
+    .turno-title {
+        font-size: 1rem;
+    }
+    
+    .turno-compact {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .turno-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+    
+    .turno-badge {
+        font-size: 1rem;
+        padding: 8px 20px;
+        text-align: center;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .switch-label-mini {
+        justify-content: center;
+        width: 100%;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .turno-times {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+    }
+    
+    .time-input {
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 12px;
+        font-weight: 600;
+    }
+    
+    .separator {
+        display: block;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        background: white;
+        padding: 4px 8px;
+        border-radius: 20px;
+        border: 2px solid var(--primary-color);
+        margin: 0 auto;
+        width: fit-content;
+    }
+    
+    .hora-extra-mini {
+        margin-top: 15px;
+        padding: 12px;
+    }
+    
+    .hora-extra-mini small {
+        font-size: 0.9rem;
+        display: block;
+    }
+}
